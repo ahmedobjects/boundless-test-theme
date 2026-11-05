@@ -50,12 +50,12 @@
   Set grid item widths based on settings
 {% endcomment %}
 
-{% include 'product-grid-width' with product_image_type: section.settings.product_image_type, product_image_size: section.settings.product_image_size %}
+{% include 'product-grid-width' with product_image_type, product_image_type: section.settings.product_image_type, product_image_size: section.settings.product_image_size %}
 
 <div class="grid collection-grid grid--uniform grid--no-gutters" data-section-id="{{ section.id }}" data-section-type="collection-template-section" data-sort-enabled="{{ section.settings.collection_sort_enable }}" data-tags-enabled="{{ section.settings.collection_tags_enable }}">
   {% for product in collection.products %}
     {% assign price = product.price | money_without_trailing_zeros %}
-    {% include 'product-grid-item' with product_image_spacing: section.settings.product_image_spacing, vendor_enable: section.settings.vendor_enable %}
+    {% include 'product-grid-item' with product_image_spacing, product_image_spacing: section.settings.product_image_spacing, vendor_enable: section.settings.vendor_enable %}
   {% else %}
     {% comment %}
       Add default products to help with onboarding for collections/all only.
@@ -629,3 +629,22 @@
   ]
 }
 {% endschema %}
+{% comment %}
+
+This file has been rewritten to preserve the original behavior.
+
+---
+Changes:
+- from: "{% include 'product-grid-width' with product_image_type: section.settings.product_image_type,
+    product_image_size: section.settings.product_image_size %}"
+  to: "{% include 'product-grid-width' with product_image_type, product_image_type:
+    section.settings.product_image_type, product_image_size: section.settings.product_image_size
+    %}"
+  position: 2312..2484
+- from: "{% include 'product-grid-item' with product_image_spacing: section.settings.product_image_spacing,
+    vendor_enable: section.settings.vendor_enable %}"
+  to: "{% include 'product-grid-item' with product_image_spacing, product_image_spacing:
+    section.settings.product_image_spacing, vendor_enable: section.settings.vendor_enable
+    %}"
+  position: 2884..3054
+{% endcomment %}

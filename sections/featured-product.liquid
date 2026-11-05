@@ -32,8 +32,8 @@
           <h2 itemprop="name">{{ title }}</h2>
           <link itemprop="availability" href="http://schema.org/{% if current_variant.available %}InStock{% else %}OutOfStock{% endif %}">
           {% unless product == empty %}
-            {%- capture 'form_id' -%}AddToCartForm-{{ section.id }}{%- endcapture -%}
-            {%- capture 'form_class' -%}product__form--add-to-cart{%- endcapture -%}
+            {%- capture form_id -%}AddToCartForm-{{ section.id }}{%- endcapture -%}
+            {%- capture form_class -%}product__form--add-to-cart{%- endcapture -%}
             {% form 'product', product, id:form_id, class:form_class, data-cart-form: '' %}
               {% comment %}
                 Select element hidden when JS initializes. Safeguard for JS-disabled.
@@ -129,7 +129,7 @@
         {% for image in product.images %}
           {% capture img_id %}ProductImage-{{ image.id }}{% endcapture %}
           {% capture img_wrapper_id %}ProductImageWrapper-{{ image.id }}{% endcapture %}
-          {% include 'image-style' with image: image, width: 700, height: 800, mobile_height: 400, wrapper_id: img_wrapper_id, img_id: img_id %}
+          {% include 'image-style' with image, image: image, width: 700, height: 800, mobile_height: 400, wrapper_id: img_wrapper_id, img_id: img_id %}
           {% assign img_url = image | img_url: '1x1' | replace: '_1x1.', '_{width}x.' %}
           <div id="ProductImageWrapper-{{ image.id }}" class="featured-product__photo-wrapper">
             <div data-image-id="{{ image.id }}"
@@ -433,3 +433,21 @@
   ]
 }
 {% endschema %}
+{% comment %}
+
+This file has been rewritten to preserve the original behavior.
+
+---
+Changes:
+- from: "{%- capture 'form_id' -%}"
+  to: "{%- capture form_id -%}"
+  position: 1921..1944
+- from: "{%- capture 'form_class' -%}"
+  to: "{%- capture form_class -%}"
+  position: 2005..2031
+- from: "{% include 'image-style' with image: image, width: 700, height: 800, mobile_height:
+    400, wrapper_id: img_wrapper_id, img_id: img_id %}"
+  to: "{% include 'image-style' with image, image: image, width: 700, height: 800,
+    mobile_height: 400, wrapper_id: img_wrapper_id, img_id: img_id %}"
+  position: 7246..7387
+{% endcomment %}

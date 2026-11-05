@@ -10,7 +10,7 @@
           {%- assign grid_item_width = 'small--one-half medium-up--one-quarter' -%}
           {%- for product in recommendations.products -%}
             {%- assign price = product.price | money_without_trailing_zeros -%}
-            {% include 'product-grid-item' with product_image_spacing: true, vendor_enable: section.settings.vendor_enable %}
+            {% include 'product-grid-item' with product_image_spacing, product_image_spacing: true, vendor_enable: section.settings.vendor_enable %}
           {%- endfor -%}
         </div>
       </div>
@@ -177,3 +177,15 @@
   ]
 }
 {% endschema %}
+{% comment %}
+
+This file has been rewritten to preserve the original behavior.
+
+---
+Changes:
+- from: "{% include 'product-grid-item' with product_image_spacing: true, vendor_enable:
+    section.settings.vendor_enable %}"
+  to: "{% include 'product-grid-item' with product_image_spacing, product_image_spacing:
+    true, vendor_enable: section.settings.vendor_enable %}"
+  position: 656..792
+{% endcomment %}

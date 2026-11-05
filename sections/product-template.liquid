@@ -114,8 +114,8 @@
           {% endif %}
           <h1 class="h2" itemprop="name">{{ product.title }}</h1>
           <link itemprop="availability" href="http://schema.org/{% if current_variant.available %}InStock{% else %}OutOfStock{% endif %}">
-          {%- capture 'form_id' -%}AddToCartForm-{{ section.id }}{%- endcapture -%}
-          {%- capture 'form_class' -%}
+          {%- capture form_id -%}AddToCartForm-{{ section.id }}{%- endcapture -%}
+          {%- capture form_class -%}
             product__form--add-to-cart{% if section.settings.product_form_width == 'large' %} product__form--full-width{% endif %}
           {%- endcapture -%}
             {% form 'product', product, id:form_id, class:form_class, data-cart-form: '' %}
@@ -630,3 +630,16 @@
   ]
 }
 {% endschema %}
+{% comment %}
+
+This file has been rewritten to preserve the original behavior.
+
+---
+Changes:
+- from: "{%- capture 'form_id' -%}"
+  to: "{%- capture form_id -%}"
+  position: 5621..5644
+- from: "{%- capture 'form_class' -%}"
+  to: "{%- capture form_class -%}"
+  position: 5703..5729
+{% endcomment %}
